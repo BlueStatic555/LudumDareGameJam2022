@@ -19,6 +19,7 @@ enum animState { RUN, FIRE, MELEE, HURT, GRAP }
 public class player : MonoBehaviour
 {
     // Start is called before the first frame update
+    public AudioSource mAudioSource;
     public Camera cam;
     public float maxHealth;
     public GameObject bullet;
@@ -75,21 +76,18 @@ public class player : MonoBehaviour
         else if (barrel == ammoState.NORMAL)
         {
             // shoot normal projectiles
-            for(int i=0; i <= 5; i++)
+            for(int i=0; i <= 10; i++)
             {
-                int angleMult = 5 * i;
+                
+                float angleMult = 5 * i;
                 GameObject c = Instantiate(bullet, transform.position, Quaternion.identity);
                 c.transform.LookAt(aim, Vector3.forward);
-                c.transform.Rotate(new Vector3(0, 0, -75-angleMult));
+                c.transform.Rotate(new Vector3(0, 0, -60-angleMult));
             }
-            /*
-            GameObject c = Instantiate(bullet, transform.position, Quaternion.identity);
-            c.transform.LookAt(aim, Vector3.forward);
-            c.transform.Rotate(new Vector3(0, 0, -90));
-            */
+
 
             // Play shotgun sound
-
+            mAudioSource.Play();
             // return true since a bullet was fired
             return true;
             
@@ -109,6 +107,8 @@ public class player : MonoBehaviour
                 {
                     leftBarrel = ammoState.EMPTY;
                     setAnimation(animState.FIRE);
+                    attacking = true;
+                    attackCD = 0.4f;
                 }
             }
             else
@@ -117,6 +117,8 @@ public class player : MonoBehaviour
                 {
                     rightBarrel = ammoState.EMPTY;
                     setAnimation(animState.FIRE);
+                    attacking = true;
+                    attackCD = 0.4f;
                 }
             }
         }
@@ -125,7 +127,7 @@ public class player : MonoBehaviour
         {
             attacking = true;
             attackCD = 0.4f;
-            mSpriteRenderer.color = Color.blue; // color change is for testing
+            //mSpriteRenderer.color = Color.blue; // color change is for testing
             setAnimation(animState.MELEE);
         }
 
@@ -139,7 +141,7 @@ public class player : MonoBehaviour
                 attackCD -= Time.deltaTime;
                 if (attackCD <= 0)
                 {
-                    mSpriteRenderer.color = Color.green; // color change is for testing
+                    //mSpriteRenderer.color = Color.green; // color change is for testing
                     attacking = false;
                 }
             }
@@ -148,7 +150,10 @@ public class player : MonoBehaviour
         {
             speedMod = 1;
         }
-        body.velocity = new Vector3(horiz * moveSpeed * speedMod, vert * moveSpeed * speedMod, 0);
+        float actualSpeedx = horiz * moveSpeed * speedMod;
+        float actualSpeedy = vert * moveSpeed * speedMod;
+        body.velocity = new Vector3(actualSpeedx,actualSpeedy, 0);
+        
 
         //Now that we know our velocity, the animator knows what direction we're headed
         if(speedMod == 1)
