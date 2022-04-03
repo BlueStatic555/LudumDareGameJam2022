@@ -9,6 +9,11 @@ enum ammoState { EMPTY, NORMAL, INCENDIARY}
 /// EMPTY: No ammo in the gun
 /// NORMAL: Regular bullets. Nothing special
 /// ...Anything else we think of
+/// 
+enum animState { RUN, FIRE, MELEE, HURT, GRAP }
+/// This will be sent to setAnimation() as a parameter
+/// In there, it'll flip the sprites and figure out which direction to face
+/// 
 
 
 public class player : MonoBehaviour
@@ -29,8 +34,9 @@ public class player : MonoBehaviour
     
     ammoState leftBarrel;
     ammoState rightBarrel;
-    
-    
+
+    //Animation stuff, don't worry about it
+    public Animator myAnimator;
 
 
 
@@ -48,8 +54,8 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float hAxis = Input.GetAxis("Horizontal");
-        float vAxis = Input.GetAxis("Vertical");
+        float hAxis = Input.GetAxisRaw("Horizontal");
+        float vAxis = Input.GetAxisRaw("Vertical");
 
         do_input(hAxis, vAxis);
 
@@ -100,12 +106,18 @@ public class player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 if (fire(leftBarrel))
+                {
                     leftBarrel = ammoState.EMPTY;
+                    setAnimation(animState.FIRE);
+                }
             }
             else
             {
                 if (fire(rightBarrel))
+                {
                     rightBarrel = ammoState.EMPTY;
+                    setAnimation(animState.FIRE);
+                }
             }
         }
         // melee input (Space)
@@ -114,6 +126,7 @@ public class player : MonoBehaviour
             attacking = true;
             attackCD = 0.4f;
             mSpriteRenderer.color = Color.blue; // color change is for testing
+            setAnimation(animState.MELEE);
         }
 
 
@@ -136,6 +149,54 @@ public class player : MonoBehaviour
             speedMod = 1;
         }
         body.velocity = new Vector3(horiz * moveSpeed * speedMod, vert * moveSpeed * speedMod, 0);
+
+        //Now that we know our velocity, the animator knows what direction we're headed
+        if(speedMod == 1)
+        {
+            setAnimation(animState.RUN);
+        }
+
+    }
+
+    private void setAnimation(animState stat)
+    {
+        //Where are we going?  Feed the animator this info.
+        myAnimator.SetFloat("xVel", body.velocity.x);
+        myAnimator.SetFloat("yVel", body.velocity.y);
+
+        if (body.velocity.x > 0)
+        {
+            mSpriteRenderer.flipX = false;
+        }
+        else if (body.velocity.x < 0)
+        {
+            mSpriteRenderer.flipX = true;
+        }
+
+        //Actually tell the animator what animation to play.  It'll use which way we're going + the trigger
+        //To determine the final animation.
+        switch(stat)
+        {
+            case animState.RUN:
+                myAnimator.SetTrigger("Run");
+                break;
+
+            case animState.FIRE:
+                myAnimator.SetTrigger("Fire");
+                break;
+
+            case animState.MELEE:
+                myAnimator.SetTrigger("Melee");
+                break;
+
+            case animState.HURT:
+                myAnimator.SetTrigger("Hurt");
+                break;
+
+            case animState.GRAP:
+                myAnimator.SetTrigger("Grap");
+                break;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

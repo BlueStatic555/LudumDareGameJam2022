@@ -31,7 +31,7 @@ public class bullet : MonoBehaviour
         switch(collision.tag)
         {
             case "R A T":
-                Destroy(this.gameObject);
+                Destroy(this.transform.parent.gameObject); //So we destroy bulletParent, which destroys us too
                 break;
         }
     }
