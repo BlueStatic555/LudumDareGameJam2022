@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - R A T
+  - ammo
+  - player
   layers:
   - Default
   - TransparentFX

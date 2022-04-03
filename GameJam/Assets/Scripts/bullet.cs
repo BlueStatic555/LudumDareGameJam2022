@@ -24,4 +24,15 @@ public class bullet : MonoBehaviour
             Destroy(transform.parent.gameObject);
         }
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        switch(collision.tag)
+        {
+            case "R A T":
+                Destroy(this.gameObject);
+                break;
+        }
+    }
 }

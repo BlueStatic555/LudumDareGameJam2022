@@ -22,6 +22,7 @@ public class player : MonoBehaviour
     public float moveSpeed;
     public Rigidbody2D body;    
     bool attacking;             // if the player is attacking or not
+    bool grappled;
     float attackCD;             // duration that the player is in the attacking state
     
 
@@ -38,8 +39,10 @@ public class player : MonoBehaviour
     {
         mSpriteRenderer = GetComponent<SpriteRenderer>();
         attacking = false;
+        grappled = false;
         leftBarrel = ammoState.NORMAL;
         rightBarrel = ammoState.NORMAL;
+        curHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -90,6 +93,7 @@ public class player : MonoBehaviour
 
     void do_input(float horiz, float vert)
     {
+        int speedMod = 1;
         // gun input
         if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.Mouse1))
         {
@@ -113,23 +117,45 @@ public class player : MonoBehaviour
         }
 
 
-        if (!attacking)
+        if (attacking || grappled)
         {
-            //Movement
-            // if the player is not attacking, do movement as normal
-            body.velocity = new Vector3(horiz * moveSpeed, vert * moveSpeed, 0);
+            speedMod = 0;
+            if (attacking)
+            {
+                
+                attackCD -= Time.deltaTime;
+                if (attackCD <= 0)
+                {
+                    mSpriteRenderer.color = Color.green; // color change is for testing
+                    attacking = false;
+                }
+            }
         }
         else
         {
-            // if the player is attacking, root them in place and decriment the attackCD
-            body.velocity = new Vector3(0, 0, 0);
-            attackCD -= Time.deltaTime;
-            if (attackCD <= 0)
-            {
-                attacking = false;
+            speedMod = 1;
+        }
+        body.velocity = new Vector3(horiz * moveSpeed * speedMod, vert * moveSpeed * speedMod, 0);
+    }
 
-                mSpriteRenderer.color = Color.white; // color change is for testing
-            }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        print("collision");
+        switch(collision.tag)
+        {
+            case "ammo":
+                print("Got to switch");
+                if (leftBarrel != ammoState.EMPTY && rightBarrel != ammoState.EMPTY)
+                    return;
+                if (leftBarrel == ammoState.EMPTY)
+                    leftBarrel = ammoState.NORMAL;
+                if (rightBarrel == ammoState.EMPTY)
+                    rightBarrel = ammoState.NORMAL;
+                Destroy(collision.gameObject);
+                break;
+            case "R A T":
+                curHealth -= 10;
+                break;
         }
     }
 }
