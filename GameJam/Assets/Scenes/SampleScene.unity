@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 461662747}
   m_Layer: 0
   m_Name: rat
-  m_TagString: Untagged
+  m_TagString: R A T
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.7
+  radius: 3.19
   height: 2
   canMove: 1
   maxSpeed: 1
@@ -185,8 +185,8 @@ MonoBehaviour:
   enableRotation: 1
   autoRepath:
     mode: 2
-    interval: 0.5
-    sensitivity: 10
+    interval: 10
+    sensitivity: 8.4
     maximumInterval: 2
     visualizeSensitivity: 0
   targetCompatibility: {fileID: 0}
@@ -575,8 +575,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484955779}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.65, y: 1.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.56, y: 1.46, z: 0}
+  m_LocalScale: {x: 0.96530503, y: 0.96530503, z: 0.96530503}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAACYn+u5w8fpaAIAACAFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlVE1z2jAQ/SuMziVjk4RAb61DSA9JmJBOLr4IaY01yJJHHwGS4b93JdvYJSfE2327b59W/iJC2RqY02ZpBH/SHMjPEQln8mPUBx/hQLdarcUndDnvgrsyJNGY80qd0IingWZ1Bc4I9kttZUhOEPRKFNpUC76FTFtnES6otIAho11gK4S+RuSAP+N5oBzxNLkLp088zZPRCY8MlAMzSJ1cTdLr2Ww6my/GyV1L60gNxysmaVUDDwP01HTWZqdNmsLR2owwBtNSCtvqIu5Yx7kzWluPU2ECFxTnjGLSq8AoQWxLF1QP6S9FYcG1ogw93guDhjV1yW/duFhRu2uUfVDpQ6fpTRTV1Hz6Fh6nMVwYXT12bdMktHClYLtXemTUuoHLQ/h+oDz6s6dyRzcS3ktQz3pptFccg874QPUWJvf93/NkWQls1+ON1AvQ173hyffbOcXZD5kU1SYgVzcNsJY6+h0XAQzezB/UG9fEthUQDSL+Wnij2+E+tYEHYazDUDukCuo22puQShbRsjCMd5k2CiLcaq5BUemOKyzjLi/wIjZoexF5oOHltM3bWPcgLigR7vOT5CK00vvzXdlS75/Ali/eSaGgFx0Cz+hTppVq9mvoSUdbe1NQNqBtveD/bxa5vmV8NuUJviqWpDfTcTqds2Jye72Z8g2kBSNx9YTCOalcNUJbe/DWVF9c4Zp1H5TR0tA67jo3dL8Un5UeWC5UodfMAKiXpsJZOBhsgq+SL7hAg9bgnFDxvslXTqRmO+D5uVAeJ10cnKF5XyUntfjQLiA5yeIXJCcBPq/yysCHgH1o3hU7kdM/UEsDBBQAAAgIAACYn+taXd6gbQAAAHgAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNEz0jM011FQSi9KLMgoBooYgjilmSkgdrSSsWlyioVZioGxhUWygaGJma6hmWVympGpcZJZSlKqYVqyUixQfUllQapfYm4qRE9AYklGWmZeSmZeup57UWaKO8hopdhaAFBLAQItABQAAAgIAACYn+u5w8fpaAIAACAFAAALACQAAAAAAAAAAAAAAAAAAABncmFwaDAuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAACYn+taXd6gbQAAAHgAAAAJACQAAAAAAAAAAAAAALUCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAIAAgC4AAAAbQMAAAAA
+    dataString: UEsDBBQAAAgIAACYn+ujlgteaQIAACIFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMziVjk8SB3lpCSA8JTEgnF1+EtMYaZMkjyXwO/70r2cYunZ4Qb/ftvrda+UyEsiUwp83cCP6mOZDvA+LP5NugC77CgW60WokTtDlfgrvcJ9GQ80Gd0IjHnmZ1Ac4I9kNtpE+OEKyUyLQpZnwDU22dRTij0gKGjHaerRA6D8gBf4YTTzniafTkTyc8TaLBBY8MlAPTSx3djeL78TgZT2bD6KmhtaSaUykmaVEC9wY6ajxusuM6TaG1JsPbYFpKYRtdxB3L4HtV5mDAG+eCos2gJb57TBDJQWxy51X36Ysss+AaUYYen4XBgdV1yU9dT7Ggdlsr21FZ+U7JQxBV13z7JzyMQzgzunht28aRb+FywbYf9Miodb0p9+HnnvQwnz2VW7qW8JWDetdzoyvFMehM5amVhdFz9/fqbJoD23Z4LfUGrMpu4NHN7XgPl2D+MJWiWPvQ3UMNrKQOAw+bAAav5hcKDntimxKIehW/LXzSTX+hmsCLMNZhqHGpvLy1roxPJbMwM++mclNtFJh+hRIUle64xDru9gpvYv9nvVD/dpruTax9EjeUAHf5UXQTWur99bZsrvdvYPNF5aRQ0I3aB95xUFOtVL1hfUstbVWZjLIebVMJ/vdukftHxscJj/BdsSh+SIZxMmHZ6PF+nfA1xBkjYfmEQp9ULmuhzXjw2lRXXOGitZ+UwdzQMmw7N3Q/F6dC2y5TqEyvmAFQi7rCVTgYbILvks+4wAGtwDmhwoWTc0qkZlvg6bVQGpzODs7QtKuSklLstPNISqbhG5ISD1+XeWlgJ2Dvm7fFLuTyB1BLAwQUAAAICAAAmJ/rWl3eoG0AAAB4AAAACQAkAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAatWKkstKs7Mz1OyUjDRM9IzNNdRUEovSizIKAaKGII4pZkpIHa0krFpcoqFWYqBsYVFsoGhiZmuoZllcpqRqXGSWUpSqmFaslIsUH1JZUGqX2JuKkRPQGJJRlpmXkpmXrqee1FmijvIaKXYWgBQSwECLQAUAAAICAAAmJ/ro5YLXmkCAAAiBQAACwAkAAAAAAAAAAAAAAAAAAAAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwECLQAUAAAICAAAmJ/rWl3eoG0AAAB4AAAACQAkAAAAAAAAAAAAAAC2AgAAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsFBgAAAAACAAIAuAAAAG4DAAAAAA==
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -655,7 +655,7 @@ MonoBehaviour:
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
-  prioritizeGraphs: 0
+  prioritizeGraphs: 1
   prioritizeGraphsLimit: 1
   colorSettings:
     _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
