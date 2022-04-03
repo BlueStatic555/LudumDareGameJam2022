@@ -7,6 +7,7 @@ TagManager:
   - R A T
   - ammo
   - player
+  - bullet
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ enum animState { RUN, FIRE, MELEE, HURT, GRAP }
 /// This will be sent to setAnimation() as a parameter
 /// In there, it'll flip the sprites and figure out which direction to face
 /// 
+public enum directionState { LEFT, RIGHT, UP, DOWN } //Tracking for melee code
 
 
 public class player : MonoBehaviour
@@ -38,6 +39,13 @@ public class player : MonoBehaviour
 
     //Animation stuff, don't worry about it
     public Animator myAnimator;
+    public directionState direction = directionState.DOWN;
+    public bool directionLock = false;
+    //Melee Hitboxes
+    public GameObject stabBoxUp;  //This is the hitbox for le stab
+    public GameObject stabBoxDown;  //This is the hitbox for le down stab
+    public GameObject stabBoxRight;  //Please I swear i know what im doing
+    public GameObject stabBoxLeft;  //I promise this is the legitamate solution TRUST me
 
 
 
@@ -85,6 +93,8 @@ public class player : MonoBehaviour
                 c.transform.Rotate(new Vector3(0, 0, -60-angleMult));
             }
 
+            setAnimation(animState.FIRE);
+
 
             // Play shotgun sound
             mAudioSource.Play();
@@ -106,7 +116,7 @@ public class player : MonoBehaviour
                 if (fire(leftBarrel))
                 {
                     leftBarrel = ammoState.EMPTY;
-                    setAnimation(animState.FIRE);
+                    
                     attacking = true;
                     attackCD = 0.4f;
                 }
@@ -116,7 +126,6 @@ public class player : MonoBehaviour
                 if (fire(rightBarrel))
                 {
                     rightBarrel = ammoState.EMPTY;
-                    setAnimation(animState.FIRE);
                     attacking = true;
                     attackCD = 0.4f;
                 }
@@ -129,6 +138,7 @@ public class player : MonoBehaviour
             attackCD = 0.4f;
             //mSpriteRenderer.color = Color.blue; // color change is for testing
             setAnimation(animState.MELEE);
+
         }
 
 
@@ -153,21 +163,58 @@ public class player : MonoBehaviour
         float actualSpeedx = horiz * moveSpeed * speedMod;
         float actualSpeedy = vert * moveSpeed * speedMod;
         body.velocity = new Vector3(actualSpeedx,actualSpeedy, 0);
-        
+
+        //There can only be ONE hurtbox active.  If we don't move, just use previous state...
+        if (!attacking && !grappled && !directionLock)
+        {
+            if (body.velocity.y < -0.1)
+                direction = directionState.DOWN;
+            else if (body.velocity.y > 0.1)
+                direction = directionState.UP;
+            else if (body.velocity.x < -0.1)
+                direction = directionState.LEFT;
+            else if (body.velocity.x > 0.1)
+                direction = directionState.RIGHT;
+        }
+
 
         //Now that we know our velocity, the animator knows what direction we're headed
-        if(speedMod == 1)
+        if (speedMod == 1)
         {
             setAnimation(animState.RUN);
         }
 
     }
-
+    //This just lets the animation change it to and from being stab time.
+    public void stabEnable() //Apparently animation events cant do true false values...but they can do int
+    {
+        //Ugly, I know.
+        print("detroit simulator...");
+        switch(direction)
+        {
+            case directionState.DOWN:
+                stabBoxDown.SetActive(!stabBoxDown.activeSelf);
+                break;
+            case directionState.UP:
+                stabBoxUp.SetActive(!stabBoxUp.activeSelf);
+                break;
+            case directionState.RIGHT:
+                stabBoxRight.SetActive(!stabBoxRight.activeSelf);
+                break;
+            case directionState.LEFT:
+                stabBoxLeft.SetActive(!stabBoxLeft.activeSelf);
+                break;
+        }
+        directionLock = !directionLock;
+    }
     private void setAnimation(animState stat)
     {
         //Where are we going?  Feed the animator this info.
-        myAnimator.SetFloat("xVel", body.velocity.x);
+
         myAnimator.SetFloat("yVel", body.velocity.y);
+        myAnimator.SetFloat("xVel", body.velocity.x);
+
+
 
         if (body.velocity.x > 0)
         {
