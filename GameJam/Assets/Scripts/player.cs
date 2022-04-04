@@ -22,19 +22,22 @@ public class player : MonoBehaviour
 {
     // Start is called before the first frame update
     public float maxShield;
-    float curShield;
+    public float curShield;
     float shieldRecharge;
     public AudioSource gunAudioSource;
     public AudioSource ammoAudioSource;
     public Camera cam;
     public float maxHealth;
+    public float iFrames;
     public GameObject bullet;
-    float curHealth;
+    public float curHealth;
+    public bool alv;
     public float moveSpeed;
     public Rigidbody2D body;    
     bool attacking;             // if the player is attacking or not
     bool grappled;
     float attackCD;             // duration that the player is in the attacking state
+    public GameObject retryButton;
     
 
 
@@ -60,6 +63,8 @@ public class player : MonoBehaviour
     void Start()
     {
         shieldRecharge = 0.0f;
+        iFrames = 0.0f;
+        alv = true;
         mSpriteRenderer = GetComponent<SpriteRenderer>();
         attacking = false;
         grappled = false;
@@ -86,11 +91,27 @@ public class player : MonoBehaviour
                 shieldRecharge -= Time.deltaTime;
             }
             else
-                curShield += 10 * Time.deltaTime;
+                curShield += 1 * Time.deltaTime;
         }
         else if (curShield > maxShield)
             curShield = maxShield;
-        do_input(hAxis, vAxis);
+        iFrames -= Time.deltaTime;
+        if (iFrames <= 0)
+        {
+            iFrames = 0.0f;
+        }
+        if (curHealth <= 0 )
+        {
+            if (alv)
+            {
+                myAnimator.SetTrigger("Death");
+                alv = false;
+            }
+        }
+        else
+        {
+            do_input(hAxis, vAxis);
+        }
 
     }
 
@@ -234,6 +255,12 @@ public class player : MonoBehaviour
         }
         directionLock = !directionLock;
     }
+    public void die()
+    {
+        retryButton.SetActive(true);
+        body.velocity = Vector2.zero;
+        Destroy(this.gameObject);
+    }
     private void setAnimation(animState stat)
     {
         //Where are we going?  Feed the animator this info.
@@ -277,8 +304,7 @@ public class player : MonoBehaviour
                 break;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         print("collision");
         switch (collision.tag)
@@ -303,7 +329,21 @@ public class player : MonoBehaviour
                 Destroy(collision.gameObject);
                 break;
             case "R A T":
-                curHealth -= 10;
+                if (iFrames == 0.0f && !attacking)
+                {
+                    if (curShield > 0)
+                    {
+                        curShield -= 10;
+                    }
+                    else
+                    {
+                        curHealth -= 10;
+                    }
+
+                    myAnimator.SetTrigger("Pwned"); //pwned xddd
+                    iFrames = 1;
+                }
+
                 break;
             case "health":
                 if (curHealth < maxHealth) 
