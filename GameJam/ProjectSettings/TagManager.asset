@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - bullet
+  - R A T
+  - player
+  - ammo
+  - health
+  - crate
   layers:
   - Default
   - TransparentFX

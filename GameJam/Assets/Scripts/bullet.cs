@@ -33,6 +33,7 @@ public class bullet : MonoBehaviour
             case "R A T":
                 Destroy(this.transform.parent.gameObject); //So we destroy bulletParent, which destroys us too
                 break;
+
         }
     }
 }
