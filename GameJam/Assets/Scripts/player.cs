@@ -19,7 +19,11 @@ enum animState { RUN, FIRE, MELEE, HURT, GRAP }
 public class player : MonoBehaviour
 {
     // Start is called before the first frame update
-    public AudioSource mAudioSource;
+    public float maxShield;
+    float curShield;
+    float shieldRecharge;
+    public AudioSource gunAudioSource;
+    public AudioSource ammoAudioSource;
     public Camera cam;
     public float maxHealth;
     public GameObject bullet;
@@ -44,12 +48,14 @@ public class player : MonoBehaviour
     SpriteRenderer mSpriteRenderer; // for testing only
     void Start()
     {
+        shieldRecharge = 0.0f;
         mSpriteRenderer = GetComponent<SpriteRenderer>();
         attacking = false;
         grappled = false;
         leftBarrel = ammoState.NORMAL;
         rightBarrel = ammoState.NORMAL;
         curHealth = maxHealth;
+        curShield = maxShield / 2;
     }
 
     // Update is called once per frame
@@ -58,6 +64,18 @@ public class player : MonoBehaviour
         float hAxis = Input.GetAxisRaw("Horizontal");
         float vAxis = Input.GetAxisRaw("Vertical");
 
+        print(curHealth);
+        if (curShield < maxShield)
+        {
+            if (shieldRecharge > 0)
+            {
+                shieldRecharge -= Time.deltaTime;
+            }
+            else
+                curShield += 10 * Time.deltaTime;
+        }
+        else if (curShield > maxShield)
+            curShield = maxShield;
         do_input(hAxis, vAxis);
 
     }
@@ -87,7 +105,8 @@ public class player : MonoBehaviour
 
 
             // Play shotgun sound
-            mAudioSource.Play();
+            gunAudioSource.Play();
+            
             // return true since a bullet was fired
             return true;
             
@@ -207,7 +226,7 @@ public class player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         print("collision");
-        switch(collision.tag)
+        switch (collision.tag)
         {
             case "ammo":
                 print("Got to switch");
@@ -217,10 +236,19 @@ public class player : MonoBehaviour
                     leftBarrel = ammoState.NORMAL;
                 if (rightBarrel == ammoState.EMPTY)
                     rightBarrel = ammoState.NORMAL;
+                ammoAudioSource.Play();
                 Destroy(collision.gameObject);
                 break;
             case "R A T":
                 curHealth -= 10;
+                break;
+            case "health":
+                if (curHealth < maxHealth) 
+                { 
+                    curHealth = maxHealth;
+                    // Play health pickup sound
+                    Destroy(collision.gameObject);
+                }
                 break;
         }
     }
