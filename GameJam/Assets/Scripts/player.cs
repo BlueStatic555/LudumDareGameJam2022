@@ -26,7 +26,6 @@ public class player : MonoBehaviour
     float shieldRecharge;
     public AudioSource gunAudioSource;
     public AudioSource ammoAudioSource;
-    public AudioSource swordAudioSource;
     public Camera cam;
     public float maxHealth;
     public float iFrames;
@@ -183,13 +182,10 @@ public class player : MonoBehaviour
         // melee input (Space)
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            
             attacking = true;
             attackCD = 0.4f;
             //mSpriteRenderer.color = Color.blue; // color change is for testing
             setAnimation(animState.MELEE);
-            swordAudioSource.Play();
-
 
         }
 
