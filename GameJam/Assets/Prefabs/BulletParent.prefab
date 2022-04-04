@@ -61,14 +61,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1365818187135633893}
     m_Modifications:
     - target: {fileID: 1831353430717734420, guid: d757c20679032a14796f1de401c3c2ec, type: 3}
-      propertyPath: m_FlipY
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1831353430717734420, guid: d757c20679032a14796f1de401c3c2ec, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -7054150499135595414, guid: db659914da0a6c34b8b7bb629be5012f, type: 3}
-    - target: {fileID: 1831353430717734420, guid: d757c20679032a14796f1de401c3c2ec, type: 3}
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
@@ -86,11 +78,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1831353430717734423, guid: d757c20679032a14796f1de401c3c2ec, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1831353430717734423, guid: d757c20679032a14796f1de401c3c2ec, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.45
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1831353430717734423, guid: d757c20679032a14796f1de401c3c2ec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -170,6 +162,6 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.012390375, y: -0.012496427}
-  m_Size: {x: 0.29129001, y: 0.50145715}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.0000002, y: 2.0000005}
   m_Direction: 0
