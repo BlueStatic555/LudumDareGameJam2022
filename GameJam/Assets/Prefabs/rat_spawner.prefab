@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: 5
   rat: {fileID: 4750577299864385356, guid: db2fbd19f10055546a86954a822eab76, type: 3}
+  fast_rat: {fileID: 4174779221066457314, guid: 1a9c7155431de30469a35f59b93ea135, type: 3}
 --- !u!212 &20926943
 SpriteRenderer:
   m_ObjectHideFlags: 0

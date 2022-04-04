@@ -7,11 +7,8 @@ public class rat_spawn : MonoBehaviour
     public float timer;
     private float remaining;
     public GameObject rat;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject fast_rat;
+
 
     // Update is called once per frame
     void Update()
@@ -20,8 +17,19 @@ public class rat_spawn : MonoBehaviour
         remaining -= dt;
         if (remaining <= 0)
         {
-            GameObject my_rat = Instantiate(rat);
-            my_rat.transform.position = transform.position;
+            int num = Random.Range(0, 10);
+            if (num == 0)  //10% chance for fast rat
+            {
+                GameObject my_rat = Instantiate(fast_rat);
+                my_rat.transform.position = transform.position;
+            }
+            else 
+            {
+                GameObject my_rat = Instantiate(rat);
+                my_rat.transform.position = transform.position;
+            }
+            if(timer > 1.0f)
+                timer -= 0.5f;
             remaining = timer;
         }
     }
