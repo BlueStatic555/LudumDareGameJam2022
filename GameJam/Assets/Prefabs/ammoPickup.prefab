@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6582373759495700485}
   - component: {fileID: 6582373759495700486}
   - component: {fileID: 6582373759495700487}
+  - component: {fileID: 4000482799718944822}
   m_Layer: 0
   m_Name: ammoPickup
   m_TagString: ammo
@@ -72,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  m_Sprite: {fileID: -5604589846812822318, guid: db659914da0a6c34b8b7bb629be5012f, type: 3}
   m_Color: {r: 1, g: 0.79453886, b: 0.032075405, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -96,6 +97,25 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.99999994, y: 1.9999999}
+  m_Offset: {x: 0, y: 0.008782545}
+  m_Size: {x: 0.99999994, y: 1.2446864}
   m_Direction: 0
+--- !u!95 &4000482799718944822
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582373759495700600}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 41712cc4ec2a49d4697018de47268c36, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

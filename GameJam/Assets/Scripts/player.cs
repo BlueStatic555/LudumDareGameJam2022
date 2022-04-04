@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 
@@ -45,6 +46,11 @@ public class player : MonoBehaviour
     public Animator myAnimator;
     public directionState direction = directionState.DOWN;
     public bool directionLock = false;
+
+    //UI
+    public GameObject hpBar;
+    public GameObject sBar;
+
     //Melee Hitboxes
     public GameObject stabBoxUp;  //This is the hitbox for le stab
     public GameObject stabBoxDown;  //This is the hitbox for le down stab
@@ -84,8 +90,15 @@ public class player : MonoBehaviour
         }
         else if (curShield > maxShield)
             curShield = maxShield;
+
+        updateUI();
         do_input(hAxis, vAxis);
 
+    }
+    void updateUI()
+    {
+        //hpBar.GetComponent<Slider>().value = curHealth / maxHealth;  //Apparently this Doesn't work.
+        //sBar.GetComponent<Slider>().value = curShield / maxShield;
     }
 
     bool fire(ammoState barrel)
