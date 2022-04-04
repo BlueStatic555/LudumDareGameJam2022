@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\player.cs" />
     <Compile Include="Assets\Scripts\bullet.cs" />
     <Compile Include="Assets\Scripts\rat_spawn.cs" />
+    <Compile Include="Assets\sceneChange.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\images\Rat Slayer.txt" />
