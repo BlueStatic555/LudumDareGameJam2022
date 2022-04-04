@@ -5,11 +5,12 @@ using UnityEngine;
 public class rat_script : MonoBehaviour
 {
     //delete rat of contact
-
+    public GameObject deathSource;
+    bool played;
     // Start is called before the first frame update
     void Start()
     {
-        
+        played = false;
     }
 
     // Update is called once per frame
@@ -22,7 +23,11 @@ public class rat_script : MonoBehaviour
         switch (collision.tag)
         {
             case "bullet":
-                Destroy(this.gameObject);
+                if (!played) 
+                {
+                    Instantiate(deathSource, transform.position, Quaternion.identity);
+                    Destroy(this.gameObject);
+                }
                 break;
         }
     }
