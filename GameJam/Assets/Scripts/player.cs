@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 
 
@@ -26,6 +26,7 @@ public class player : MonoBehaviour
     float shieldRecharge;
     public AudioSource gunAudioSource;
     public AudioSource ammoAudioSource;
+    public AudioSource swordAudioSource;
     public Camera cam;
     public float maxHealth;
     public float iFrames;
@@ -49,6 +50,8 @@ public class player : MonoBehaviour
     public Animator myAnimator;
     public directionState direction = directionState.DOWN;
     public bool directionLock = false;
+    public Image hBar;
+    public Image sBar;
     //Melee Hitboxes
     public GameObject stabBoxUp;  //This is the hitbox for le stab
     public GameObject stabBoxDown;  //This is the hitbox for le down stab
@@ -71,7 +74,7 @@ public class player : MonoBehaviour
         leftBarrel = ammoState.NORMAL;
         rightBarrel = ammoState.NORMAL;
         curHealth = maxHealth;
-        curShield = maxShield / 2;
+        curShield = maxShield;
         empty.a = 0;
         full.a = 255;
 
@@ -91,7 +94,7 @@ public class player : MonoBehaviour
                 shieldRecharge -= Time.deltaTime;
             }
             else
-                curShield += 1 * Time.deltaTime;
+                curShield += 3 * Time.deltaTime;
         }
         else if (curShield > maxShield)
             curShield = maxShield;
@@ -112,7 +115,13 @@ public class player : MonoBehaviour
         {
             do_input(hAxis, vAxis);
         }
+        updateUI();
 
+    }
+    void updateUI()
+    {
+        hBar.fillAmount = curHealth / maxHealth;
+        sBar.fillAmount = curShield / maxShield;
     }
 
     bool fire(ammoState barrel)
@@ -182,10 +191,14 @@ public class player : MonoBehaviour
         // melee input (Space)
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            attacking = true;
-            attackCD = 0.4f;
-            //mSpriteRenderer.color = Color.blue; // color change is for testing
-            setAnimation(animState.MELEE);
+            if (!attacking)
+            {
+                attacking = true;
+                attackCD = 0.4f;
+                iFrames = 0.3f;
+                //mSpriteRenderer.color = Color.blue; // color change is for testing
+                setAnimation(animState.MELEE);
+            }
 
         }
 
@@ -253,7 +266,13 @@ public class player : MonoBehaviour
                 stabBoxLeft.SetActive(!stabBoxLeft.activeSelf);
                 break;
         }
+        
+
         directionLock = !directionLock;
+        if (directionLock)
+        {
+            swordAudioSource.Play();
+        }
     }
     public void die()
     {
@@ -329,15 +348,15 @@ public class player : MonoBehaviour
                 Destroy(collision.gameObject);
                 break;
             case "R A T":
-                if (iFrames == 0.0f && !attacking)
+                if (iFrames == 0.0f)
                 {
                     if (curShield > 0)
                     {
-                        curShield -= 10;
+                        curShield -= 25;
                     }
                     else
                     {
-                        curHealth -= 10;
+                        curHealth -= 25;
                     }
 
                     myAnimator.SetTrigger("Pwned"); //pwned xddd
